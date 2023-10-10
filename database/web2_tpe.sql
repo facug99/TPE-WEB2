@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2023 a las 18:47:56
+-- Tiempo de generación: 10-10-2023 a las 19:00:13
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `albums` (
   `id` int(11) NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `lanzamiento` int(11) NOT NULL,
-  `banda_id` int(11) NOT NULL
+  `title` varchar(100) NOT NULL,
+  `year` int(11) NOT NULL,
+  `band_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -80,7 +80,7 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `albums`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_banda_id` (`banda_id`) USING BTREE;
+  ADD KEY `FK_band_id` (`band_id`);
 
 --
 -- Indices de la tabla `bands`
@@ -125,7 +125,7 @@ ALTER TABLE `users`
 -- Filtros para la tabla `albums`
 --
 ALTER TABLE `albums`
-  ADD CONSTRAINT `banda_album` FOREIGN KEY (`banda_id`) REFERENCES `bands` (`id`);
+  ADD CONSTRAINT `FK_band_id` FOREIGN KEY (`band_id`) REFERENCES `bands` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
