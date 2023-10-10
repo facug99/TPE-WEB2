@@ -1,0 +1,27 @@
+<?php require_once "templates/header.phtml"; ?>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Género</th>
+            <th>País de origen</th>
+            <th>Año de creación</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php foreach ($bands as $band) : ?>
+            <tr>
+                <td><?= $band->id ?></td>
+                <td><?= $band->name ?></td>
+                <td><?= $band->genre ?></td>
+                <td><?= $band->formed_country ?></td>
+                <td><?= $band->formed_year ?></td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
+</table>
+
+<?php require_once "templates/footer.phtml"; ?>

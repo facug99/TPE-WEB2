@@ -11,7 +11,8 @@
 */
 
 // Se importan los archivos de los controladores
-// ...
+require_once "./app/controllers/album.controller.php";
+require_once "./app/controllers/band.controller.php";
 
 // URL base para utilizar URLs semánticas
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
@@ -29,27 +30,23 @@ $params = explode('/', $action);
 // Se determina qué camino seguir
 switch($params[0]) {
     case "home":
-        echo "Home";
         //showHome();
         break;
 
     case "albums":
-        echo "Albums";
         //showAlbums();
         break;
 
     case "album":
-        echo 'Album' . $params[1];
         //showAlbum($params[1]);
         break;
 
     case "bands":
-        echo "Bands";
-        //showBands();
+        $bandController = new BandController();
+        $bandController->showBands();
         break;
         
     case "band":
-        echo 'Band' . $params[1];
         //showBand($params[1]);
         break;
 
