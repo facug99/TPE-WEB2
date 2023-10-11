@@ -7,8 +7,7 @@ class BandController {
     private $model;
     private $view;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->model = new BandModel();
         $this->view = new BandView();
     }

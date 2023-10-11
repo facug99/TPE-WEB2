@@ -3,14 +3,15 @@
 /*
     TABLA DE ROUTING
     Acción                      Destino
-    home            ->          controller->showHome();
-    albums          ->          controller->showAlbums();
-    albums/:id      ->          controller->showAlbum($id);
-    bands           ->          controller->showBands();
-    bands/:id       ->          controller->showBand($id);
+    home            ->          home.controller->showHome();
+    albums          ->          album.controller->showAlbums();
+    albums/:id      ->          album.controller->showAlbum($id);
+    bands           ->          band.controller->showBands();
+    bands/:id       ->          band.controller->showBand($id);
 */
 
 // Se importan los archivos de los controladores
+require_once "./app/controllers/home.controller.php";
 require_once "./app/controllers/album.controller.php";
 require_once "./app/controllers/band.controller.php";
 
@@ -21,16 +22,17 @@ define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'
 $action = "home"; // acción por defecto
 
 if (!empty($_GET["action"])) {
-    $action = $_GET["action"]; 
+    $action = $_GET["action"];
 }
 
 // Se analiza la acción (string parsing) y se almacena en un array
 $params = explode('/', $action);
 
 // Se determina qué camino seguir
-switch($params[0]) {
+switch ($params[0]) {
     case "home":
-        //showHome();
+        $homeController = new HomeController();
+        $homeController->showHome();
         break;
 
     case "albums":
@@ -45,7 +47,7 @@ switch($params[0]) {
         $bandController = new BandController();
         $bandController->showBands();
         break;
-        
+
     case "band":
         //showBand($params[1]);
         break;
