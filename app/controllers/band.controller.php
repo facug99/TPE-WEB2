@@ -19,4 +19,16 @@ class BandController {
         // Se envían a la vista para que las muestre
         $this->view->showBands($bands);
     }
+
+    public function showBand($id) {
+        $band = $this->model->getBandById($id);
+    }
+
+    public function showBandAlbums($idBand) {
+        // Se obtienen los álbumes de una banda dado su ID 
+        $albums = $this->model->getBandAlbums($idBand);
+
+        // Se envían a la vista para que las muestre
+        $this->view->showBandAlbums($idBand);
+    }
 }

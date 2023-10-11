@@ -3,7 +3,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Género</th>
             <th>País de origen</th>
@@ -14,8 +13,9 @@
     <tbody>
         <?php foreach ($bands as $band) : ?>
             <tr>
-                <td><?= $band->id ?></td>
-                <td><?= $band->name ?></td>
+                <td>
+                    <a class="link-dark" href="./band/<?= $band->id ?> "><?= $band->name ?></a>
+                </td>
                 <td><?= $band->genre ?></td>
                 <td><?= $band->formed_country ?></td>
                 <td><?= $band->formed_year ?></td>

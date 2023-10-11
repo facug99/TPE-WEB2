@@ -18,4 +18,22 @@ class BandModel {
         $bands = $query->fetchAll(PDO::FETCH_OBJ);
         return $bands;
     }
+
+    public function getBandById($id) {
+        $sql = 'SELECT * FROM bands WHERE id = ?';
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+
+        $band = $query->fetch(PDO::FETCH_OBJ);
+        return $band;
+    }
+
+    public function getBandAlbums($idBand) {
+        $sql = 'SELECT * FROM albums WHERE band_id = ?';
+        $query = $this->db->prepare($sql);
+        $query->execute([$idBand]);
+
+        $band = $query->fetch(PDO::FETCH_OBJ);
+        return $band;
+    }
 }
