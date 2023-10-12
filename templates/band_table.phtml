@@ -1,5 +1,19 @@
 <?php require_once "templates/header.phtml"; ?>
 
+<h1>Bandas</h1>
+
+<!-- Acceso restringido para la inserción de bandas -->
+<?php // if (!isset($_SESSION['USER_ID'])) : ?>
+    <form action="add-band" method="POST">
+        <input type="text" name="name" placeholder="Nombre" required>
+        <input type="text" name="genre" placeholder="Género" required>
+        <input type="text" name="country" placeholder="País de origen" require>
+        <input type="number" name="year" placeholder="Año de creación" require>
+        <button type="submit">Insertar</button>
+    </form>
+<?php // endif; ?>
+
+<!-- Acceso público -->
 <table class="table">
     <thead>
         <tr>
@@ -7,6 +21,10 @@
             <th>Género</th>
             <th>País de origen</th>
             <th>Año de creación</th>
+            
+            <?php // if (!isset($_SESSION['USER_ID'])) : ?>
+            <th></th>
+            <?php // endif; ?>
         </tr>
     </thead>
 
@@ -19,8 +37,13 @@
                 <td><?= $band->genre ?></td>
                 <td><?= $band->formed_country ?></td>
                 <td><?= $band->formed_year ?></td>
+
+                <!-- Acceso restringido para la modificación/eliminación de bandas -->
+                <?php // if (!isset($_SESSION['USER_ID'])) : ?>
+                <td>Modificar | Eliminar</td>
+                <?php // endif; ?>
             </tr>
-        <?php endforeach ?>
+        <?php endforeach; ?>
     </tbody>
 </table>
 

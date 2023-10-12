@@ -12,6 +12,9 @@ class BandController {
         $this->view = new BandView();
     }
 
+    /**
+     * Muestra todas las bandas
+     */
     public function showBands() {
         // Se obtienen las bandas del modelo
         $bands = $this->model->getBands();
@@ -20,15 +23,41 @@ class BandController {
         $this->view->showBands($bands);
     }
 
-    public function showBand($id) {
-        $band = $this->model->getBandById($id);
+    /**
+     *  ----> No debería ser responsabilidad del MVC de albums??? <----
+     */
+    public function showBandAlbums($idBand) {
+
     }
 
-    public function showBandAlbums($idBand) {
-        // Se obtienen los álbumes de una banda dado su ID 
-        $albums = $this->model->getBandAlbums($idBand);
+    /**
+     * Crea una banda en la DB e informa a la vista 
+     * en caso que se haya producido un error
+     */
+    public function addBand($data) {
+        $name = $data["name"];
+        $genre = $data["genre"];
+        $country = $data["country"];
+        $year = $data["year"];
 
-        // Se envían a la vista para que las muestre
-        $this->view->showBandAlbums($idBand);
+        // Se verifican los datos ingresados
+        if (empty($name) || empty($genre) || empty($country) || empty($year)) {
+            $error = "Error al insertar la banda.";
+            $details = "Faltan completar campos.";
+            $this->view->showError($error, $details);
+            return;
+        }
+
+        $id = $this->model->insertBand($name, $genre, $country, $year);
+
+        // Se verifica si se insertó correctamente la banda en la DB
+        if ($id != 0) {
+            header('Location: ' . BASE_URL . '/bands');
+        } else {
+            $error = "Error al insertar la banda.";
+            $details = "No pudo crearse la banda en la base de datos.";
+            $this->view->showError($error, $details);
+            return;
+        }
     }
 }
