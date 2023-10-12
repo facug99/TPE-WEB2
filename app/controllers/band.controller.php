@@ -24,9 +24,9 @@ class BandController {
     }
 
     /**
-     *  ----> No debería ser responsabilidad del MVC de albums??? <----
+     *  Muestra la banda dada
      */
-    public function showBandAlbums($idBand) {
+    public function showBandById($idBand) {
 
     }
 

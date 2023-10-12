@@ -5,8 +5,9 @@
     Acción                      Destino
     home            ->          home.controller->showHome();
     albums          ->          album.controller->showAlbums();
-    albums/:id      ->          album.controller->showAlbum($id);
+    album/:id       ->          album.controller->showAlbum($id);
     bands           ->          band.controller->showBands();
+    band/:id        ->          band.controller->showBand($id);
 */
 
 // Se importan los archivos de los controladores
@@ -47,15 +48,17 @@ switch ($params[0]) {
         $bandController->showBands();
         break;
 
+    case "band":
+        $bandController = new BandController();
+        $bandController->showBandById($params[1]);
+        break;
+
     case "add-band":
         $bandController = new BandController();
         $bandController->addBand($_POST);
         break;
 
-    case "band":
-        //$bandController = new BandController();
-        //$bandController->showBandAlbums($params[1]);
-        //break;
+
 
     default:
         //showError("Error 404: Page not found");
