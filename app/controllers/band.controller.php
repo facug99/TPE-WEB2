@@ -93,9 +93,10 @@ class BandController {
     /**
      * Modifica la banda con el ID dado
      */
-    public function modifyBand($id) {
+    public function editBand($id) {
         if (empty($_POST)) {
-            $this->view->showForm($id);
+            $band = $this->model->getBandById($id);
+            $this->view->showBandEditForm($band);
             return;
         }
 
@@ -110,7 +111,7 @@ class BandController {
             return;
         }
 
-        $modified = $this->model->modifyBand($id, $name, $genre, $country, $year);
+        $modified = $this->model->editBand($id, $name, $genre, $country, $year);
 
         if ($modified) {
             // Si se modificó, se actualiza la vista

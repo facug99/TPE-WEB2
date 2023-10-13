@@ -1,0 +1,15 @@
+<?php require_once "templates/header.phtml"; ?>
+
+<h1>Editar <?= $band->name ?></h1>
+
+<form action="edit-band/<?= $band->id ?>" method="POST">
+    <input type="text" name="name" value="<?= $band->name ?>" placeholder="Nombre" require>
+    <input type="text" name="genre" value="<?= $band->genre ?>" placeholder="Género" require>
+    <input type="text" name="country" value="<?= $band->formed_country ?>" placeholder="País de origen" require>
+    <input type="text" name="year" value="<?= $band->formed_year ?>" placeholder="Año de creación" require>
+    <button type="submit">Listo</button>
+</form>
+
+<a href="./bands">Volver</a>
+
+<?php require_once "templates/footer.phtml"; ?>

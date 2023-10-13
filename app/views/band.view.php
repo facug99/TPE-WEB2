@@ -16,6 +16,13 @@ class BandView {
     }
 
     /**
+     * Muestra el formulario de modificación
+     */
+    public function showBandEditForm($band) {
+        require_once 'templates/band_form.phtml';
+    }
+
+    /**
      * Muestra el error recibido por parámetro
      */
     public function showError($error) {

@@ -58,9 +58,9 @@ switch ($params[0]) {
         $bandController->addBand();
         break;
 
-    case "modify-band":
+    case "edit-band":
         $bandController = new BandController();
-        $bandController->modifyBand($params[1]);
+        $bandController->editBand($params[1]);
         break;
 
     case "delete-band":

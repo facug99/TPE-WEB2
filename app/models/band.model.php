@@ -73,7 +73,15 @@ class BandModel {
     /**
      * Modifica una banda dado su ID
      */
-    public function modifyBand($id, $genre, $name, $country, $year) {
-        
+    public function editBand($id, $name, $genre, $country, $year) {
+        $sql = 'UPDATE bands 
+                SET name = ?, genre = ?, formed_country = ?, formed_year = ? 
+                WHERE id = ?';
+        $query = $this->db->prepare($sql);
+        $query->execute([$name, $genre, $country, $year, $id]);
+
+        // Si la consulta no produjo ningún cambio en la tabla se devuelve false
+        $count = $query->rowCount();
+        return $count > 0;
     }
 }
