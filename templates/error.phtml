@@ -1,8 +1,8 @@
 <?php require_once "templates/header.phtml"; ?>
 
-<div class="bg-danger">
-    <h3><?= $error ?></h3>
-    <p><?= $details ?></p>
+<div class="card d-flex w-50">
+    <h3 class="card-header bg-danger text-light">Error</h3>
+    <p class="card-body card-text"><?= $error ?></p>
 </div>
 
 <?php require_once "templates/footer.phtml"; ?>

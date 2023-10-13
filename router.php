@@ -55,10 +55,18 @@ switch ($params[0]) {
 
     case "add-band":
         $bandController = new BandController();
-        $bandController->addBand($_POST);
+        $bandController->addBand();
         break;
 
+    case "modify-band":
+        $bandController = new BandController();
+        $bandController->modifyBand($params[1]);
+        break;
 
+    case "delete-band":
+        $bandController = new BandController();
+        $bandController->deleteBand($params[1]);
+        break;
 
     default:
         //showError("Error 404: Page not found");

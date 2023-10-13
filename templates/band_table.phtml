@@ -40,7 +40,10 @@
 
                 <!-- Acceso restringido para la modificación/eliminación de bandas -->
                 <?php // if (!isset($_SESSION['USER_ID'])) : ?>
-                <td>Modificar | Eliminar</td>
+                <td>
+                    <a class="link-dark" href="./modify-band/<?= $band->id ?>">Modificar</a> | 
+                    <a class="link-dark" href="./delete-band/<?= $band->id ?>">Eliminar</a>
+                </td>
                 <?php // endif; ?>
             </tr>
         <?php endforeach; ?>

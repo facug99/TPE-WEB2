@@ -1,0 +1,19 @@
+<?php require_once "templates/header.phtml"; ?>
+
+<div class="card">
+    <h1 class="card-header"><?= $band->name ?></h1>
+    <div class="card-body">
+        <p>Género: <span><?= $band->genre ?></span></p>
+        <p>País de origen: <span><?= $band->formed_country ?></span></p>
+        <p>Año de creación: <span><?= $band->formed_year ?></span></p>
+
+        
+        <h2>Álbumes</h2>
+    </div>
+</div>
+
+
+
+<a href="./bands" class="text-center">Volver</a>
+
+<?php require_once "templates/footer.phtml"; ?>

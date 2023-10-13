@@ -37,7 +37,7 @@ class BandModel {
     }
 
     /**
-     * Esto iría en album.model?
+     * Obtiene los álbumes de una banda dada
      */
     public function getBandAlbums($idBand) {
         $sql = 'SELECT * FROM albums WHERE band_id = ?';
@@ -48,8 +48,8 @@ class BandModel {
     }
 
     /**
-     * Inserta una banda en la DB y devuelve 
-     * un número distinto de 0 si no hubo error
+     * Inserta una banda en la DB y, si no se produce ningún error, 
+     * devuelve un número distinto de 0 si no hubo error
      */
     public function insertBand($name, $genre, $country, $year) {
         $sql = 'INSERT INTO bands (name, genre, formed_country, formed_year) VALUES (?, ?, ?, ?)';
@@ -58,5 +58,22 @@ class BandModel {
         return $this->db->lastInsertId();    
     }
 
-    
+    /**
+     * Elimina una banda dado su ID
+     */
+    public function deleteBand($id) {
+        $sql = 'DELETE FROM bands WHERE id = ?';
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+
+        // Si la consulta no produjo ningún cambio en la tabla se devuelve false
+        return $query->rowCount() > 0;
+    }
+
+    /**
+     * Modifica una banda dado su ID
+     */
+    public function modifyBand($id, $genre, $name, $country, $year) {
+        
+    }
 }

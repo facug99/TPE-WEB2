@@ -24,27 +24,38 @@ class BandController {
     }
 
     /**
-     *  Muestra la banda dada
+     *  Muestra la banda con el ID dado
      */
-    public function showBandById($idBand) {
+    public function showBandById($id) {
+        // Se verifica si existe la banda
+        if ($id) {
+            // Se pide la banda a la base de datos
+            $band = $this->model->getBandById($id);
 
+            // Se la envía a la vista para que la muestre
+            $this->view->showBand($band);
+        } else {
+            // La vista muestra un error
+            $error = "Error al mostrar la banda.";
+            $details = "ID inválido.";
+            $this->view->showError($error, $details);
+        }
     }
 
     /**
      * Crea una banda en la DB e informa a la vista 
      * en caso que se haya producido un error
      */
-    public function addBand($data) {
-        $name = $data["name"];
-        $genre = $data["genre"];
-        $country = $data["country"];
-        $year = $data["year"];
+    public function addBand() {
+        $name = $_POST["name"];
+        $genre = $_POST["genre"];
+        $country = $_POST["country"];
+        $year = $_POST["year"];
 
         // Se verifican los datos ingresados
         if (empty($name) || empty($genre) || empty($country) || empty($year)) {
-            $error = "Error al insertar la banda.";
-            $details = "Faltan completar campos.";
-            $this->view->showError($error, $details);
+            $error = "Faltan completar campos.";
+            $this->view->showError($error);
             return;
         }
 
@@ -54,10 +65,61 @@ class BandController {
         if ($id != 0) {
             header('Location: ' . BASE_URL . '/bands');
         } else {
-            $error = "Error al insertar la banda.";
-            $details = "No pudo crearse la banda en la base de datos.";
-            $this->view->showError($error, $details);
+            $error = "Error al insertar la banda en la base de datos ";
+            $this->view->showError($error);
             return;
+        }
+    }
+
+    /**
+     * Elimina la banda con el ID dado
+     */
+    public function deleteBand($id) {
+        // Se elimina la banda de la DB a través del modelo
+        $deleted = $this->model->deleteBand($id);
+
+        // Se verifica si se eliminó correctamente de la DB
+        if ($deleted) {
+            // Si se eliminó, se actualiza la vista
+            $bands = $this->model->getBands();
+            $this->view->showBands($bands);
+        } else {
+            // Sino, se muestra un error
+            $error = "No se pudo eliminar la banda de la base de datos";
+            $this->view->showError($error);
+        }
+    }
+
+    /**
+     * Modifica la banda con el ID dado
+     */
+    public function modifyBand($id) {
+        if (empty($_POST)) {
+            $this->view->showForm($id);
+            return;
+        }
+
+        $name = $_POST["name"];
+        $genre = $_POST["genre"];
+        $country = $_POST["country"];
+        $year = $_POST["year"];
+
+        if (empty($name) || empty($genre) || empty($country) || empty($year)) {
+            $error = "Faltan completar campos.";
+            $this->view->showError($error);
+            return;
+        }
+
+        $modified = $this->model->modifyBand($id, $name, $genre, $country, $year);
+
+        if ($modified) {
+            // Si se modificó, se actualiza la vista
+            $bands = $this->model->getBands();
+            $this->view->showBands($bands);
+        } else {
+            // Sino, se muestra un error
+            $error = "No se pudo eliminar la banda de la base de datos";
+            $this->view->showError($error);
         }
     }
 }
