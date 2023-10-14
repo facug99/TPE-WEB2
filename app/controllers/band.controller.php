@@ -31,14 +31,14 @@ class BandController {
         if ($id) {
             // Se pide la banda a la base de datos
             $band = $this->model->getBandById($id);
+            $albums = $this->model->getBandAlbums($id);
 
             // Se la envía a la vista para que la muestre
-            $this->view->showBand($band);
+            $this->view->showBand($band, $albums);
         } else {
             // La vista muestra un error
-            $error = "Error al mostrar la banda.";
-            $details = "ID inválido.";
-            $this->view->showError($error, $details);
+            $error = "ID de banda inválido";
+            $this->view->showError($error);
         }
     }
 

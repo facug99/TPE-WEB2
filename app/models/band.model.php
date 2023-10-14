@@ -43,13 +43,13 @@ class BandModel {
         $sql = 'SELECT * FROM albums WHERE band_id = ?';
         $query = $this->db->prepare($sql);
         $query->execute([$idBand]);
-        $band = $query->fetch(PDO::FETCH_OBJ);
-        return $band;
+        $albums = $query->fetchAll(PDO::FETCH_OBJ);
+        return $albums;
     }
 
     /**
      * Inserta una banda en la DB y, si no se produce ningún error, 
-     * devuelve un número distinto de 0 si no hubo error
+     * devuelve un número distinto de 0
      */
     public function insertBand($name, $genre, $country, $year) {
         $sql = 'INSERT INTO bands (name, genre, formed_country, formed_year) VALUES (?, ?, ?, ?)';

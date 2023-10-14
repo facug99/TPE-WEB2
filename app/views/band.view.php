@@ -11,7 +11,7 @@ class BandView {
     /**
      * Muestra los detalles de la banda dada y sus álbumes
      */
-    public function showBand($band) {
+    public function showBand($band, $albums) {
         require_once 'templates/band_info.phtml';
     }
 
