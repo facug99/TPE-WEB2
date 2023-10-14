@@ -7,30 +7,22 @@ class AlbumModel {
         $this->db = new PDO('mysql:host=localhost;dbname=web2_tpe;charset=utf8', 'root', '');
     }
 
-    /**
-     * Obtiene los albumes de la tabla 'albums'
-     */
     public function getAlbums() {
-        // Se prepara y ejecuta la consulta
+        
         $sql = 'SELECT * FROM albums';
         $query = $this->db->prepare($sql);
         $query->execute();
 
-        // Se obtienen y devuelven los resultados
+        
         $albums = $query->fetchAll(PDO::FETCH_OBJ);
         return $albums;
     }
-
-    /**
-     * Obtiene el album con el ID dado
-     */
+    
     public function getAlbumById($id) {
-        // Se prepara y ejecuta la consulta
+        
         $sql = 'SELECT * FROM albums WHERE id = ?';
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
-
-        // Se obtiene y devuelve el resultado
         $album = $query->fetch(PDO::FETCH_OBJ);
         return $album;
     }
