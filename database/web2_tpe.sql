@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2023 a las 19:00:13
+-- Tiempo de generación: 13-10-2023 a las 23:58:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -33,6 +33,23 @@ CREATE TABLE `albums` (
   `year` int(11) NOT NULL,
   `band_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `albums`
+--
+
+INSERT INTO `albums` (`id`, `title`, `year`, `band_id`) VALUES
+(1, 'Waterloo', 1974, 5),
+(2, 'Queen ', 1973, 2),
+(3, 'Nevermind', 1991, 4),
+(4, 'Queen II', 1973, 2),
+(5, 'Bleach', 1989, 4),
+(6, 'A Night at the Opera', 1975, 2),
+(7, 'Boy', 1980, 3),
+(8, 'War', 1983, 3),
+(9, 'Songs of Surrender', 2023, 3),
+(10, 'Abbey Road', 1969, 1),
+(11, 'Yellow Submarine', 1969, 1);
 
 -- --------------------------------------------------------
 
@@ -103,7 +120,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `bands`

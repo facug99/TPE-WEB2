@@ -36,11 +36,27 @@ switch ($params[0]) {
         break;
 
     case "albums":
-        //showAlbums();
+        $albumController = new AlbumController();
+        $albumController->showAlbums();
         break;
 
     case "album":
-        //showAlbum($params[1]);
+        $albumController = new AlbumController();
+        $albumController->showAlbumById($params[1]);
+        break;
+    case "add-album":
+        $albumController = new AlbumController();
+        $albumController->addAlbum();
+        break;
+    
+    case "edit-album":
+        $albumController = new AlbumController();
+        $albumController->editAlbum($params[1]);
+        break;
+    
+    case "delete-album":
+        $albumController = new AlbumController();
+        $albumController->deleteAlbum($params[1]);
         break;
 
     case "bands":
@@ -70,4 +86,5 @@ switch ($params[0]) {
 
     default:
         //showError("Error 404: Page not found");
+        
 }

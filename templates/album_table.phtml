@@ -1,0 +1,50 @@
+<?php require_once "templates/header.phtml"; ?>
+
+<h1>Albumes</h1>
+
+<!-- Acceso restringido para la inserción de bandas -->
+<?php // if (!isset($_SESSION['USER_ID'])) : ?>
+    <form action="add-album" method="POST">
+        <input type="text" name="title" placeholder="Titulo" required>
+        <input type="number" name="year" placeholder="Año" required>
+        <input type="text" name="band_id" placeholder="Banda" require>
+        <button type="submit">Insertar</button>
+    </form>
+<?php // endif; ?>
+
+<!-- Acceso público -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Año</th>
+            <th>Banda</th>
+            
+            <?php // if (!isset($_SESSION['USER_ID'])) : ?>
+            <th></th>
+            <?php // endif; ?>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php foreach ($albums as $album) : ?>
+            <tr>
+                <td>
+                    <a class="link-dark" href="./album/<?= $album->id ?> "><?= $album->title ?></a>
+                </td>
+                <td><?= $album->year ?></td>
+                <td><?= $album->band_id ?></td>
+
+                <!-- Acceso restringido para la modificación/eliminación de bandas -->
+                <?php // if (!isset($_SESSION['USER_ID'])) : ?>
+                <td>
+                    <a class="link-dark" href="./edit-album/<?= $album->id ?>">Editar</a> | 
+                    <a class="link-dark" href="./delete-album/<?= $album->id ?>">Eliminar</a>
+                </td>
+                <?php // endif; ?>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php require_once "templates/footer.phtml"; ?>
