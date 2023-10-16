@@ -15,6 +15,7 @@ require_once "config.php";
 require_once "./app/controllers/home.controller.php";
 require_once "./app/controllers/album.controller.php";
 require_once "./app/controllers/band.controller.php";
+require_once "./app/controllers/auth.controller.php";
 
 // Lectura de acción del usuario
 $action = "home"; // acción por defecto
@@ -81,8 +82,18 @@ switch ($params[0]) {
         $bandController = new BandController();
         $bandController->deleteBand($params[1]);
         break;
+    case 'login':
+        $logincontroller = new AuthController();
+        $logincontroller->showLogin(); 
+        break;
+     case 'auth':
+        $authcontroller = new AuthController();
+        $authcontroller->auth();
+        break;
+    
 
     default:
-        //showError("Error 404: Page not found");
+        echo "Error 404: Page not found";
+        break;
         
 }
