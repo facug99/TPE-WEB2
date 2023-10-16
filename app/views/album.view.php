@@ -5,7 +5,7 @@ class AlbumView {
      * Muestra la lista de álbumes recibida por parámetro
      */
     public function showAlbums($albums, $bands) {
-        require_once 'templates/album_table.phtml';
+        require_once 'templates/albums.phtml';
     }
     
     /**
