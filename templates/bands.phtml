@@ -3,17 +3,11 @@
 <h1>Bandas</h1>
 
 <!-- Acceso restringido para la inserción de bandas -->
-<?php // if (!isset($_SESSION['USER_ID'])) : ?>
-    <div class="d-flex justify-content-center align-items-center mt-4">
-        <form action="add-band" method="POST">
-            <input type="text" name="name" placeholder="Nombre" required>
-            <input type="text" name="genre" placeholder="Género" required>
-            <input type="text" name="country" placeholder="País de origen" require>
-            <input type="number" name="year" placeholder="Año de creación" require>
-            <button type="submit">Insertar</button>
-        </form>
-    </div>
-<?php // endif; ?>
+<?php 
+// if (!isset($_SESSION['USER_ID'])) {
+    require_once "band_form_add.phtml";
+// }
+?>
 
 <!-- Acceso público -->
 <table class="table mb-5 mt-5">
