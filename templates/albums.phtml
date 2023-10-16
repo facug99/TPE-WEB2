@@ -30,9 +30,6 @@
                     <a class="link-dark" href="./album/<?= $album->id ?> "><?= $album->title ?></a>
                 </td>
                 <td><?= $album->year ?></td>
-                <?php foreach ($bands as $band) : ?>
-                <td><?= $band->name?></td>
-                <?php endforeach; ?>
                 <!-- Acceso restringido para la modificación/eliminación de bandas -->
                 <?php // if (!isset($_SESSION['USER_ID'])) : ?>
                 <td>
