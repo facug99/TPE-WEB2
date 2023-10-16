@@ -11,7 +11,7 @@ class AlbumView {
     /**
      * Muestra los detalles del álbum dado
      */
-    public function showAlbum($album) {
+    public function showAlbum($album, $band) {
         require_once 'templates/album_info.phtml';
     }
 
