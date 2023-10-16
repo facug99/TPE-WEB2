@@ -18,8 +18,8 @@ class AlbumView {
     /**
      * Muestra el formulario de modificación
      */
-    public function showAlbumEditForm($album){
-        require_once 'templates/album_form.phtml';
+    public function showAlbumEditForm($album, $bands){
+        require_once 'templates/album_form_edit.phtml';
     }
 
     /**

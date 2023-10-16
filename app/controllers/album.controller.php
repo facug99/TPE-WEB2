@@ -93,7 +93,8 @@ class AlbumController {
     public function editAlbum($id) {
         if (empty($_POST)) {
             $album = $this->model->getAlbumById($id);
-            $this->view->showAlbumEditForm($album);
+            $bands = $this->model->getBands();
+            $this->view->showAlbumEditForm($album, $bands);
             return;
         }
 
@@ -107,15 +108,10 @@ class AlbumController {
             return;
         }
 
-        $modified = $this->model->editAlbum($id, $title, $year, $band_id);
+        $this->model->editAlbum($id, $title, $year, $band_id);
 
-        if ($modified) {
-            $albums = $this->model->getAlbums();
-            $bands = $this->model->getBands();
-            $this->view->showAlbums($albums, $bands);
-        } else {
-            $error = "No se pudo modificar el album en la base de datos.";
-            $this->view->showError($error);
-        }
+        $albums = $this->model->getAlbums();
+        $bands = $this->model->getBands();
+        $this->view->showAlbums($albums, $bands);
     }
 }

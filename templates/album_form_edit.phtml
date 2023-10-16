@@ -5,8 +5,12 @@
 <form action="edit-album/<?= $album->id ?>" method="POST">
     <input type="text" name="title" value="<?= $album->title ?>" placeholder="Titulo" require>
     <input type="text" name="year" value="<?= $album->year ?>" placeholder="Año de creación" require>
-    <input type="text" name="band_id" value="<?= $album->band_id ?>" placeholder="Banda" require>
-    
+    <select name="band_id" requiered>
+        <!-- Se muestra el nombre de cada banda en el select -->
+        <?php foreach ($bands as $band) : ?>
+            <option value="<?= $band->id ?>"><?= $band->name ?></option>
+        <?php endforeach; ?>
+    </select>
     <button type="submit">Listo</button>
 </form>
 
