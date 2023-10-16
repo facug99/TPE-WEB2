@@ -90,9 +90,16 @@ class BandModel {
      */
     public function checkBandExists($name, $excludedName = null) {
         // Se cuenta la cantidad de registros cuyo nombre coincida el dado
-        $sql = "SELECT COUNT(*) FROM bands WHERE name = ? AND name != ?";
+        $sql = "SELECT COUNT(*) FROM bands WHERE name = ?"; 
+        if ($excludedName)
+            $sql .= " AND name != ?";
+
         $query = $this->db->prepare($sql);
-        $query->execute([$name, $excludedName]);
+
+        if ($excludedName)
+            $query->execute([$name, $excludedName]);
+        else
+            $query->execute([$name]);
 
         // Se obtiene el resultado de la consulta
         $count = $query->fetchColumn();

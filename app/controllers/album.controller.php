@@ -16,8 +16,14 @@ class AlbumController {
      * Muestra todos los álbumes
      */
     public function showAlbums() {
+        // Se obtienen los álbumes
         $albums = $this->model->getAlbums();
-        $this->view->showAlbums($albums);
+
+        // Se obtienen las bandas para generar los formularios
+        $bands = $this->model->getBands(); 
+
+        // Se muestra la tabla de álbumes
+        $this->view->showAlbums($albums, $bands);
     }
 
     /**
@@ -72,7 +78,8 @@ class AlbumController {
         $deleted = $this->model->deleteAlbum($id);
         if ($deleted) {
             $albums = $this->model->getAlbums();
-            $this->view->showAlbums($albums);
+            $bands = $this->model->getBands();
+            $this->view->showAlbums($albums, $bands);
         } else {
             $error = "No se pudo eliminar el album de la base de datos.";
             $this->view->showError($error);
@@ -103,7 +110,8 @@ class AlbumController {
 
         if ($modified) {
             $albums = $this->model->getAlbums();
-            $this->view->showAlbums($albums);
+            $bands = $this->model->getBands();
+            $this->view->showAlbums($albums, $bands);
         } else {
             $error = "No se pudo modificar el album en la base de datos.";
             $this->view->showError($error);

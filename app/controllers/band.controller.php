@@ -61,6 +61,7 @@ class BandController {
 
         // Se verifica si la banda ingresada ya existe
         $exists = $this->model->checkBandExists($name);
+
         if ($exists) {
             $error = "La banda ya existe.";
             $this->view->showError($error);

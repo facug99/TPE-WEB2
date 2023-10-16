@@ -80,4 +80,16 @@ class AlbumModel {
         // Si count es mayor que 0, significa que el band_id existe
         return $count > 0;
     }
+
+    /**
+     * Se obtienen las bandas de la base de datos para generar los formularios
+     */
+    public function getBands() {
+        $sql = 'SELECT * FROM bands';
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        $bands = $query->fetchAll(PDO::FETCH_OBJ);
+        return $bands;
+    }
 }
