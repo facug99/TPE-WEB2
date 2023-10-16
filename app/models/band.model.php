@@ -84,4 +84,20 @@ class BandModel {
         $count = $query->rowCount();
         return $count > 0;
     }
+    
+    /**
+     * Verifica si una banda existe en la DB, dado su nombre
+     */
+    public function checkBandExists($name, $excludedName = null) {
+        // Se cuenta la cantidad de registros cuyo nombre coincida el dado
+        $sql = "SELECT COUNT(*) FROM bands WHERE name = ? AND name != ?";
+        $query = $this->db->prepare($sql);
+        $query->execute([$name, $excludedName]);
+
+        // Se obtiene el resultado de la consulta
+        $count = $query->fetchColumn();
+
+        // Si count es mayor que 0, ya existe otra banda con ese nombre
+        return $count > 0;
+    }
 }

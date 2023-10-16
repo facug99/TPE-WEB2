@@ -59,13 +59,22 @@ class BandController {
             return;
         }
 
-        $id = $this->model->insertBand($name, $genre, $country, $year);
+        // Se verifica si la banda ingresada ya existe
+        $exists = $this->model->checkBandExists($name);
+        if ($exists) {
+            $error = "La banda ya existe.";
+            $this->view->showError($error);
+            return;
+        }
 
-        // Se verifica si se insertó correctamente la banda en la DB
+        // Se inserta en la banda DB
+        $id = $this->model->insertBand($name, $genre, $country, $year);
+        
+        // Se verifica si se insertó correctamente
         if ($id != 0) {
             header('Location: ' . BASE_URL . '/bands');
         } else {
-            $error = "Error al insertar la banda en la base de datos ";
+            $error = "Error al insertar la banda en la base de datos.";
             $this->view->showError($error);
             return;
         }
@@ -94,6 +103,7 @@ class BandController {
      * Modifica la banda con el ID dado
      */
     public function editBand($id) {
+        // Si no hay elementos en $_POST se muestra el formulario de edición
         if (empty($_POST)) {
             $band = $this->model->getBandById($id);
             $this->view->showBandEditForm($band);
@@ -111,16 +121,21 @@ class BandController {
             return;
         }
 
-        $modified = $this->model->editBand($id, $name, $genre, $country, $year);
+        // Se verifica si existe otra banda con el mismo nombre
+        $band = $this->model->getBandById($id);
+        $exists = $this->model->checkBandExists($name, $band->name);
 
-        if ($modified) {
-            // Si se modificó, se actualiza la vista
+        if ($exists) {
+            $error = "La banda ya existe.";
+            $this->view->showError($error);
+            return;
+        }
+
+        // Se modifica la banda
+        $this->model->editBand($id, $name, $genre, $country, $year);
+
+        // Se actualiza la vista
             $bands = $this->model->getBands();
             $this->view->showBands($bands);
-        } else {
-            // Sino, se muestra un error
-            $error = "No se pudo eliminar la banda de la base de datos";
-            $this->view->showError($error);
-        }
     }
 }

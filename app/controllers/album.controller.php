@@ -43,7 +43,7 @@ class AlbumController {
         $band_id = $_POST["band_id"];
 
         if (empty($title) || empty($year) || empty($band_id)) {
-            $error = "Faltan completar campos o la banda no esta en la base de datos.";
+            $error = "Faltan completar campos.";
             $this->view->showError($error);
             return;
         }
@@ -56,11 +56,10 @@ class AlbumController {
         }
 
         $id = $this->model->insertAlbum($title, $year, $band_id);
-
         if ($id != 0) {
             header('Location: ' . BASE_URL . '/albums');
         } else {
-            $error = "Error al insertar el album en la base de datos ";
+            $error = "Error al insertar el album en la base de datos.";
             $this->view->showError($error);
             return;
         }
