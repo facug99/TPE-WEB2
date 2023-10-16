@@ -10,39 +10,21 @@
 ?>
 
 <!-- Acceso público -->
-<table class="table mb-5 mt-5">
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Año</th>
-            <th>Banda</th>
-            
+<ul class="list-group mt-5 mb-5">
+    <?php foreach ($albums as $album) : ?>
+        <li class="list-group-item d-flex justify-content-between">
+            <div>
+                <a class="link-dark" href="./album/<?= $album->id ?> "><?= $album->title ?></a>
+            </div>
             <?php // if (!isset($_SESSION['USER_ID'])) : ?>
-            <th></th>
-            <?php // endif; ?>
-        </tr>
-    </thead>
-
-    <tbody>
-        <?php foreach ($albums as $album) : ?>
-            <tr>
-                <td>
-                    <a class="link-dark" href="./album/<?= $album->id ?> "><?= $album->title ?></a>
-                </td>
-                <td><?= $album->year ?></td>
-                <td><?= $album->band_id ?></td>
-
-                <!-- Acceso restringido para la modificación/eliminación de bandas -->
-                <?php // if (!isset($_SESSION['USER_ID'])) : ?>
-                <td>
-                    <a class="link-dark" href="./edit-album/<?= $album->id ?>">Editar</a> | 
-                    <a class="link-dark" href="./delete-album/<?= $album->id ?>">Eliminar</a>
-                </td>
-                <?php // endif; ?>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+                <div class="d-flex justify-content-end">
+                    <a href="./edit-album/<?= $album->id ?>" type="btn" class='btn btn-outline-secondary'>Editar</a>
+                    <a href="./delete-album/<?= $album->id ?>" type="btn" class='btn btn-outline-danger ms-2'>Eliminar</a>
+                </div>
+            <?php //endif; ?>
+        </li>
+    <?php endforeach ?>
+</ul>
 
 <div class="d-flex justify-content-center align-items-center">
     <a href="./">Volver</a>
