@@ -32,7 +32,8 @@ class AlbumController {
     public function showAlbumById($id) {
         if ($id) {
             $album = $this->model->getAlbumById($id);
-            $this->view->showAlbum($album);
+            $band = $this->model->getBandOfAlbum($album->band_id);
+            $this->view->showAlbum($album, $band);
         } else {
             $error = "ID de álbum inválido.";
             $this->view->showError($error);

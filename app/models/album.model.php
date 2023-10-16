@@ -29,6 +29,14 @@ class AlbumModel {
         $album = $query->fetch(PDO::FETCH_OBJ);
         return $album;
     }
+    
+    public function getBandOfAlbum($idBand){
+        $sql = 'SELECT * FROM bands WHERE id = ?';
+        $query = $this->db->prepare($sql);
+        $query->execute([$idBand]);
+        $band = $query->fetch(PDO::FETCH_OBJ);
+        return $band;
+    }
 
     /**
      * Inserta un álbum en la DB y, si no se produce ningún error, 
