@@ -1,6 +1,6 @@
 <?php require_once "templates/header.phtml"; ?>
 
-<div class="card">
+<div class="card mb-5">
     <h1 class="card-header"><?= $band->name ?></h1>
     <div class="card-body">
         <p>Género: <span><?= $band->genre ?></span></p>
@@ -8,19 +8,21 @@
         <p>Año de creación: <span><?= $band->formed_year ?></span></p>
 
         <h2>Álbumes</h2>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Álbum</th>
+                    <th>Título</th>
                     <th>Año de lanzamiento</th>
                 </tr>
             </thead>
 
             <?php foreach ($albums as $album) : ?>
-                <td>
-                    <a href="album/<?= $album->id ?>"><?= $album->title ?></a>
-                </td>
-                <td><?= $album->year ?></td>
+                <tr>
+                    <td>
+                        <a href="album/<?= $album->id ?>"><?= $album->title ?></a>
+                    </td>
+                    <td><?= $album->year ?></td>
+                </tr>
             <?php endforeach; ?>
         </table>
     </div>

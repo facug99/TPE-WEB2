@@ -28,7 +28,7 @@ class AlbumController {
             $album = $this->model->getAlbumById($id);
             $this->view->showAlbum($album);
         } else {
-            $error = "ID de álbum inválido";
+            $error = "ID de álbum inválido.";
             $this->view->showError($error);
         }
     }
@@ -50,7 +50,7 @@ class AlbumController {
 
         $bandExists = $this->model->checkBandExists($band_id);
         if (!$bandExists) {
-            $error = "La banda no existe. Debe crearla primero.";
+            $error = "La banda no existe: debe crearla primero.";
             $this->view->showError($error);
             return;
         }
@@ -74,7 +74,7 @@ class AlbumController {
             $albums = $this->model->getAlbums();
             $this->view->showAlbums($albums);
         } else {
-            $error = "No se pudo eliminar el album de la base de datos";
+            $error = "No se pudo eliminar el album de la base de datos.";
             $this->view->showError($error);
         }
     }
@@ -94,7 +94,7 @@ class AlbumController {
         $band_id = $_POST["band_id"];
 
         if (empty($title) || empty($year) || empty($band_id)) {
-            $error = "Faltan completar campos o la banda no esta en la base de datos.";
+            $error = "Faltan completar campos.";
             $this->view->showError($error);
             return;
         }
@@ -105,7 +105,7 @@ class AlbumController {
             $albums = $this->model->getAlbums();
             $this->view->showAlbums($albums);
         } else {
-            $error = "No se pudo eliminar el album de la base de datos";
+            $error = "No se pudo modificar el album en la base de datos.";
             $this->view->showError($error);
         }
     }

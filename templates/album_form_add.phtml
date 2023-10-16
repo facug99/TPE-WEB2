@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-center align-items-center mt-4">
+    <form action="add-album" method="POST">
+        <input type="text" name="title" placeholder="Titulo" required>
+        <input type="number" name="year" placeholder="Año" required>
+        <select name="band_id" requiered>
+            <!-- Se muestra el nombre de cada banda en el select -->
+            <?php foreach ($bands as $band) : ?>
+                <option value="<?= $band->id ?>"><?= $band->name ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Insertar</button>
+    </form>
+</div>

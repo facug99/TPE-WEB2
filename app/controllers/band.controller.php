@@ -125,17 +125,18 @@ class BandController {
         $band = $this->model->getBandById($id);
         $exists = $this->model->checkBandExists($name, $band->name);
 
+        // Si existe, se muestra un error
         if ($exists) {
             $error = "La banda ya existe.";
             $this->view->showError($error);
             return;
         }
 
-        // Se modifica la banda
+        // Si no existe, se modifica la banda
         $this->model->editBand($id, $name, $genre, $country, $year);
 
-        // Se actualiza la vista
-            $bands = $this->model->getBands();
-            $this->view->showBands($bands);
+        // Y se actualiza la vista
+        $bands = $this->model->getBands();
+        $this->view->showBands($bands);
     }
 }
