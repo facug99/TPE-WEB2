@@ -11,12 +11,10 @@
 */
 
 // Se importan los archivos de los controladores
+require_once "config.php";
 require_once "./app/controllers/home.controller.php";
 require_once "./app/controllers/album.controller.php";
 require_once "./app/controllers/band.controller.php";
-
-// URL base para utilizar URLs semánticas
-define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 // Lectura de acción del usuario
 $action = "home"; // acción por defecto
