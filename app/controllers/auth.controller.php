@@ -25,7 +25,6 @@ class AuthController {
             return;
         }
 
-        
         $user = $this->model->getUserByUsername($user);
         if ($user && password_verify($password, $user->password)) {
             AuthHelper::login($user);

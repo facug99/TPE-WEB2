@@ -101,5 +101,4 @@ switch ($params[0]) {
     default:
         echo "Error 404: Page not found";
         break;
-        
 }

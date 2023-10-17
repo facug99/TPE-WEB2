@@ -4,7 +4,7 @@
 
 <!-- Acceso restringido para la inserción de bandas -->
 <?php 
-if (!isset($_SESSION['USER_ID'])) {
+if (isset($_SESSION['USER_ID'])) {
     require_once "templates/album_form_add.phtml";
 }
 ?>
@@ -16,12 +16,15 @@ if (!isset($_SESSION['USER_ID'])) {
             <div>
                 <a class="link-dark" href="./album/<?= $album->id ?> "><?= $album->title ?></a>
             </div>
-            <?php if (!isset($_SESSION['USER_ID'])) : ?>
+
+            <!-- Acceso restringido para modificar/eliminar bandas -->
+            <?php if (isset($_SESSION['USER_ID'])) : ?>
                 <div class="d-flex justify-content-end">
                     <a href="./edit-album/<?= $album->id ?>" type="btn" class='btn btn-outline-secondary'>Editar</a>
                     <a href="./delete-album/<?= $album->id ?>" type="btn" class='btn btn-outline-danger ms-2'>Eliminar</a>
                 </div>
             <?php endif; ?>
+            <!-- -->
         </li>
     <?php endforeach ?>
 </ul>

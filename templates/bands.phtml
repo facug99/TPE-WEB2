@@ -4,7 +4,7 @@
 
 <!-- Acceso restringido para la inserción de bandas -->
 <?php
-if (!isset($_SESSION['USER_ID'])) {
+if (isset($_SESSION['USER_ID'])) {
     require_once "band_form_add.phtml";
 }
 ?>
@@ -17,7 +17,7 @@ if (!isset($_SESSION['USER_ID'])) {
             <th>Género</th>
             <th>País de origen</th>
             <th>Año de creación</th>
-            <?php if (!isset($_SESSION['USER_ID'])) : ?>
+            <?php if (isset($_SESSION['USER_ID'])) : ?>
             <th></th>
             <?php endif; ?>
         </tr>
@@ -34,7 +34,7 @@ if (!isset($_SESSION['USER_ID'])) {
                 <td><?= $band->formed_year ?></td>
 
                 <!-- Acceso restringido para la modificación/eliminación de bandas -->
-                <?php if (!isset($_SESSION['USER_ID'])) : ?>
+                <?php if (isset($_SESSION['USER_ID'])) : ?>
                 <td>
                     <a class="btn btn-outline-dark" href="./edit-band/<?= $band->id ?>">Editar</a>
                     <a class="btn btn-outline-danger ms-2" href="./delete-band/<?= $band->id ?>">Eliminar</a>

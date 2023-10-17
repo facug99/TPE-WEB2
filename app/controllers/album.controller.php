@@ -9,7 +9,7 @@ class AlbumController {
     private $view;
 
     public function __construct() {
-        AuthHelper::verify();
+        AuthHelper::init();
         $this->model = new AlbumModel();
         $this->view = new AlbumView();
     }
@@ -47,6 +47,7 @@ class AlbumController {
      * en caso que se haya producido un error
      */
     public function addAlbum() {
+        AuthHelper::verify();
         $title = $_POST["title"];
         $year = $_POST["year"];
         $band_id = $_POST["band_id"];
@@ -78,6 +79,7 @@ class AlbumController {
      * Elimina el álbum con el ID dado
      */
     public function deleteAlbum($id) {
+        AuthHelper::verify();
         $deleted = $this->model->deleteAlbum($id);
         if ($deleted) {
             $albums = $this->model->getAlbums();
@@ -93,6 +95,7 @@ class AlbumController {
      * Modifica el álbum con el ID dado
      */
     public function editAlbum($id) {
+        AuthHelper::verify();
         if (empty($_POST)) {
             $album = $this->model->getAlbumById($id);
             $bands = $this->model->getBands();

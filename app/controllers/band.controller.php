@@ -9,7 +9,7 @@ class BandController {
     private $view;
 
     public function __construct() {
-        AuthHelper::verify();
+        AuthHelper::init();
         $this->model = new BandModel();
         $this->view = new BandView();
     }
@@ -49,6 +49,9 @@ class BandController {
      * en caso que se haya producido un error
      */
     public function addBand() {
+        // Se verifica el inicio de sesión
+        AuthHelper::verify();
+
         $name = $_POST["name"];
         $genre = $_POST["genre"];
         $country = $_POST["country"];
@@ -87,6 +90,9 @@ class BandController {
      * Elimina la banda con el ID dado
      */
     public function deleteBand($id) {
+        // Se verifica el inicio de sesión
+        AuthHelper::verify();
+
         // Se elimina la banda de la DB a través del modelo
         $deleted = $this->model->deleteBand($id);
 
@@ -106,6 +112,9 @@ class BandController {
      * Modifica la banda con el ID dado
      */
     public function editBand($id) {
+        // Se verifica el inicio de sesión
+        AuthHelper::verify();
+
         // Si no hay elementos en $_POST se muestra el formulario de edición
         if (empty($_POST)) {
             $band = $this->model->getBandById($id);
