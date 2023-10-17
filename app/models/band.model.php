@@ -56,13 +56,18 @@ class BandModel extends Model {
     /**
      * Elimina una banda dado su ID
      */
-    public function deleteBand($id) {
+    public function deleteBand($id, $albums) {
+        // Se verifica que la banda no tenga álbumes asociados
+        foreach($albums as $album) {
+            if ($album->band_id == $id) {
+                return false;
+            }
+        }
+
         $sql = 'DELETE FROM bands WHERE id = ?';
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
-
-        // Si la consulta no produjo ningún cambio en la tabla se devuelve false
-        return $query->rowCount() > 0;
+        return true;
     }
 
     /**

@@ -93,8 +93,12 @@ class BandController {
         // Se verifica el inicio de sesión
         AuthHelper::verify();
 
+        // Se obtienen los álbumes para verificar si se puede eliminar la banda (FK)
+        $albumModel = new AlbumModel();
+        $albums = $albumModel->getAlbums();
+
         // Se elimina la banda de la DB a través del modelo
-        $deleted = $this->model->deleteBand($id);
+        $deleted = $this->model->deleteBand($id, $albums);
 
         // Se verifica si se eliminó correctamente de la DB
         if ($deleted) {
@@ -103,7 +107,7 @@ class BandController {
             $this->view->showBands($bands);
         } else {
             // Sino, se muestra un error
-            $error = "No se pudo eliminar la banda de la base de datos";
+            $error = "No se pudo eliminar la banda de la base de datos: se deben eliminar primero sus álbumes.";
             $this->view->showError($error);
         }
     }
