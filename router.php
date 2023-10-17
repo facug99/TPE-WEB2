@@ -82,16 +82,22 @@ switch ($params[0]) {
         $bandController = new BandController();
         $bandController->deleteBand($params[1]);
         break;
+
     case 'login':
-        $logincontroller = new AuthController();
-        $logincontroller->showLogin(); 
+        $loginController = new AuthController();
+        $loginController->showLogin(); 
         break;
-     case 'auth':
-        $authcontroller = new AuthController();
-        $authcontroller->auth();
+     
+    case 'auth':
+        $authController = new AuthController();
+        $authController->auth();
         break;
     
-
+    case 'logout':
+        $controller = new AuthController();
+        $controller->logout();
+        break;
+        
     default:
         echo "Error 404: Page not found";
         break;

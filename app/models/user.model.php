@@ -7,10 +7,12 @@ class UserModel {
         $this->db = new PDO('mysql:host=localhost;dbname=web2_tpe;charset=utf8', 'root', '');
     }
 
-    public function getByUser($user) {
+    /**
+     * Obtiene un usuario dado su nombre de usuario
+     */
+    public function getUserByUsername($username) {
         $query = $this->db->prepare('SELECT * FROM users WHERE username = ?');
-        $query->execute([$user]);
-
+        $query->execute([$username]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
 }

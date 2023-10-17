@@ -4,7 +4,7 @@
     <form method="POST" action="auth">
         <div class="form-group">
             <label for="user">Nombre de usuario</label>
-            <input type="user" required class="form-control" id="user" name="user" >
+            <input type="user" required class="form-control" id="user" name="username">
         </div>
         <div class="form-group">
             <label for="password">Contraseña</label>
@@ -14,12 +14,11 @@
         <?php if ($error) : ?>
             <div class='alert alert-danger' role='alert'>
                 <?= $error ?>
-            </div> 
+            </div>
         <?php endif ?>
-       
+
         <button type="submit" class="btn btn-primary mt-3">Entrar</button>
     </form>
 </div>
 
 <?php require 'templates/footer.phtml' ?>
-
