@@ -2,12 +2,14 @@
 
 require_once './app/models/band.model.php';
 require_once './app/views/band.view.php';
+require_once './app/helpers/auth.helper.php';
 
 class BandController {
     private $model;
     private $view;
 
     public function __construct() {
+        AuthHelper::verify();
         $this->model = new BandModel();
         $this->view = new BandView();
     }

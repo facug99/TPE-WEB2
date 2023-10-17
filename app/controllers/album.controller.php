@@ -2,12 +2,14 @@
 
 require_once './app/models/album.model.php';
 require_once './app/views/album.view.php';
+require_once './app/helpers/auth.helper.php';
 
 class AlbumController {
     private $model;
     private $view;
 
     public function __construct() {
+        AuthHelper::verify();
         $this->model = new AlbumModel();
         $this->view = new AlbumView();
     }
