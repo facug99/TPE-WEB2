@@ -1,13 +1,8 @@
 <?php
 
-class BandModel {
-    private $db;
+require_once "app/models/model.php";
 
-    public function __construct() {
-        // Se abre la conexión con la base de datos
-        $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS);
-    }
-
+class BandModel extends Model {
     /**
      * Obtiene las bandas de la tabla 'bands'
      */
@@ -51,10 +46,10 @@ class BandModel {
      * Inserta una banda en la DB y, si no se produce ningún error, 
      * devuelve un número distinto de 0
      */
-    public function insertBand($name, $genre, $country, $year) {
-        $sql = 'INSERT INTO bands (name, genre, formed_country, formed_year) VALUES (?, ?, ?, ?)';
+    public function insertBand($name, $genre, $location, $year) {
+        $sql = 'INSERT INTO bands (name, genre, formed_location, formed_year) VALUES (?, ?, ?, ?)';
         $query = $this->db->prepare($sql);
-        $query->execute([$name, $genre, $country, $year]);
+        $query->execute([$name, $genre, $location, $year]);
         return $this->db->lastInsertId();    
     }
 
@@ -73,12 +68,12 @@ class BandModel {
     /**
      * Modifica una banda dado su ID
      */
-    public function editBand($id, $name, $genre, $country, $year) {
+    public function editBand($id, $name, $genre, $location, $year) {
         $sql = 'UPDATE bands 
-                SET name = ?, genre = ?, formed_country = ?, formed_year = ? 
+                SET name = ?, genre = ?, formed_location = ?, formed_year = ? 
                 WHERE id = ?';
         $query = $this->db->prepare($sql);
-        $query->execute([$name, $genre, $country, $year, $id]);
+        $query->execute([$name, $genre, $location, $year, $id]);
 
         // Si la consulta no produjo ningún cambio en la tabla se devuelve false
         $count = $query->rowCount();

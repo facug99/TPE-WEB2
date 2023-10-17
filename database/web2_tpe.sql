@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2023 a las 23:58:36
+-- Tiempo de generación: 17-10-2023 a las 18:20:49
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,17 +39,18 @@ CREATE TABLE `albums` (
 --
 
 INSERT INTO `albums` (`id`, `title`, `year`, `band_id`) VALUES
-(1, 'Waterloo', 1974, 5),
-(2, 'Queen ', 1973, 2),
-(3, 'Nevermind', 1991, 4),
-(4, 'Queen II', 1973, 2),
-(5, 'Bleach', 1989, 4),
-(6, 'A Night at the Opera', 1975, 2),
-(7, 'Boy', 1980, 3),
-(8, 'War', 1983, 3),
-(9, 'Songs of Surrender', 2023, 3),
-(10, 'Abbey Road', 1969, 1),
-(11, 'Yellow Submarine', 1969, 1);
+(4, 'Rock a Medianoche', 2000, 2),
+(5, 'Rock Eterno', 1999, 2),
+(6, 'Raíces sureñas', 1988, 3),
+(7, 'Folklore de la Pampa', 1999, 3),
+(8, 'Salsa y Pasión', 2005, 4),
+(9, 'Tropical Heat', 2012, 4),
+(10, 'Cachengue Bristol', 2016, 6),
+(11, 'Yo Quiero Rock', 2001, 7),
+(12, 'Con vos', 2004, 8),
+(13, 'Baila', 2010, 8),
+(14, '20 Grandes Éxitos', 2020, 9),
+(15, 'Tanto Tango', 1998, 10);
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,7 @@ CREATE TABLE `bands` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `genre` varchar(100) NOT NULL,
-  `formed_country` varchar(100) NOT NULL,
+  `formed_location` varchar(100) NOT NULL,
   `formed_year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -69,12 +70,16 @@ CREATE TABLE `bands` (
 -- Volcado de datos para la tabla `bands`
 --
 
-INSERT INTO `bands` (`id`, `name`, `genre`, `formed_country`, `formed_year`) VALUES
-(1, 'The Beatles', 'Rock', 'Reino Unido', 1960),
-(2, 'Queen', 'Rock', 'Reino Unido', 1970),
-(3, 'U2', 'Rock', 'Irlanda', 1976),
-(4, 'Nirvana', 'Grunge', 'Estados Unidos', 1987),
-(5, 'ABBA', 'Pop', 'Suecia', 1972);
+INSERT INTO `bands` (`id`, `name`, `genre`, `formed_location`, `formed_year`) VALUES
+(2, 'Rockeros de la Noche', 'Rock', 'Mar del Plata', 1998),
+(3, 'Sonidos del Sur', 'Folklore', 'Bahía Blanca', 2003),
+(4, 'Hot Salsa Quilmes', 'Salsa', 'Quilmes', 2010),
+(5, 'Lomas de Milonga', 'Tango', 'Lomas de Zamora', 2008),
+(6, 'Cuartetazo Bristol', 'Cuarteto', 'Mar del Plata', 2015),
+(7, 'Esto es Rock', 'Rock', 'Tandil', 2000),
+(8, 'MDQumbia ', 'Cumbia', 'Mar del Plata', 2002),
+(9, 'Aires Sureños', 'Folklore', 'Bahía Blanca', 2012),
+(10, 'Dor por Cuatro', 'Tango', 'La Plata', 1995);
 
 -- --------------------------------------------------------
 
@@ -84,9 +89,16 @@ INSERT INTO `bands` (`id`, `name`, `genre`, `formed_country`, `formed_year`) VAL
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'webadmin', '$2y$10$sG.FqhVNVlwjWZkSmgE6O.YT7Dxm94JtfoRjRxZsjaXqpWhw/GDwS');
 
 --
 -- Índices para tablas volcadas
@@ -110,7 +122,7 @@ ALTER TABLE `bands`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQUE_email` (`email`) USING BTREE;
+  ADD UNIQUE KEY `UNIQUE_email` (`username`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -120,19 +132,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `bands`
 --
 ALTER TABLE `bands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -142,7 +154,7 @@ ALTER TABLE `users`
 -- Filtros para la tabla `albums`
 --
 ALTER TABLE `albums`
-  ADD CONSTRAINT `FK_band_id` FOREIGN KEY (`band_id`) REFERENCES `bands` (`id`);
+  ADD CONSTRAINT `FK_band_id` FOREIGN KEY (`band_id`) REFERENCES `bands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

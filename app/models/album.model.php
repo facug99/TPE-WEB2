@@ -1,12 +1,8 @@
 <?php
 
-class AlbumModel {
-    private $db;
+require_once "app/models/model.php";
 
-    public function __construct() {
-        $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS);
-    }
-
+class AlbumModel extends Model {
     /**
      * Obtiene los álbumes de la tabla 'albums'
      */

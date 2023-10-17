@@ -15,7 +15,7 @@ if (isset($_SESSION['USER_ID'])) {
         <tr>
             <th>Nombre</th>
             <th>Género</th>
-            <th>País de origen</th>
+            <th>Ciudad de origen</th>
             <th>Año de creación</th>
             <?php if (isset($_SESSION['USER_ID'])) : ?>
             <th></th>
@@ -30,7 +30,7 @@ if (isset($_SESSION['USER_ID'])) {
                     <a class="link-dark" href="./band/<?= $band->id ?> "><?= $band->name ?></a>
                 </td>
                 <td><?= $band->genre ?></td>
-                <td><?= $band->formed_country ?></td>
+                <td><?= $band->formed_location ?></td>
                 <td><?= $band->formed_year ?></td>
 
                 <!-- Acceso restringido para la modificación/eliminación de bandas -->

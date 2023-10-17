@@ -54,11 +54,11 @@ class BandController {
 
         $name = $_POST["name"];
         $genre = $_POST["genre"];
-        $country = $_POST["country"];
+        $location = $_POST["location"];
         $year = $_POST["year"];
 
         // Se verifican los datos ingresados
-        if (empty($name) || empty($genre) || empty($country) || empty($year)) {
+        if (empty($name) || empty($genre) || empty($location) || empty($year)) {
             $error = "Faltan completar campos.";
             $this->view->showError($error);
             return;
@@ -74,7 +74,7 @@ class BandController {
         }
 
         // Se inserta en la banda DB
-        $id = $this->model->insertBand($name, $genre, $country, $year);
+        $id = $this->model->insertBand($name, $genre, $location, $year);
         
         // Se verifica si se insertó correctamente
         if ($id != 0) {
@@ -124,10 +124,10 @@ class BandController {
 
         $name = $_POST["name"];
         $genre = $_POST["genre"];
-        $country = $_POST["country"];
+        $location = $_POST["location"];
         $year = $_POST["year"];
 
-        if (empty($name) || empty($genre) || empty($country) || empty($year)) {
+        if (empty($name) || empty($genre) || empty($location) || empty($year)) {
             $error = "Faltan completar campos.";
             $this->view->showError($error);
             return;
@@ -145,7 +145,7 @@ class BandController {
         }
 
         // Si no existe, se modifica la banda
-        $this->model->editBand($id, $name, $genre, $country, $year);
+        $this->model->editBand($id, $name, $genre, $location, $year);
 
         // Y se actualiza la vista
         $bands = $this->model->getBands();

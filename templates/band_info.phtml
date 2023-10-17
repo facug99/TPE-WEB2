@@ -4,27 +4,30 @@
     <h1 class="card-header"><?= $band->name ?></h1>
     <div class="card-body">
         <p>Género: <span><?= $band->genre ?></span></p>
-        <p>País de origen: <span><?= $band->formed_country ?></span></p>
+        <p>Ciudad de origen: <span><?= $band->formed_location ?></span></p>
         <p>Año de creación: <span><?= $band->formed_year ?></span></p>
 
-        <h2>Álbumes</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Año de lanzamiento</th>
-                </tr>
-            </thead>
+        <div class="mt-4">
+            <h2>Álbumes</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Año de lanzamiento</th>
+                    </tr>
+                </thead>
 
-            <?php foreach ($albums as $album) : ?>
-                <tr>
-                    <td>
-                        <a href="album/<?= $album->id ?>"><?= $album->title ?></a>
-                    </td>
-                    <td><?= $album->year ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
+                <?php foreach ($albums as $album) : ?>
+                    <tr>
+                        <td>
+                            <a href="album/<?= $album->id ?>"><?= $album->title ?></a>
+                        </td>
+                        <td><?= $album->year ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+
     </div>
 </div>
 

@@ -1,12 +1,8 @@
 <?php
 
-class UserModel {
-    private $db;
+require_once "app/models/model.php";
 
-    function __construct() {
-        $this->db = new PDO('mysql:host=localhost;dbname=web2_tpe;charset=utf8', 'root', '');
-    }
-
+class UserModel extends Model {
     /**
      * Obtiene un usuario dado su nombre de usuario
      */
