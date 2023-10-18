@@ -17,7 +17,7 @@
     login               ->          auth.controller->showLogin();
     auth                ->          auth.controller->auth();
     logout              ->          auth.controller->logout();
-    default             ->          error.controller->showError($error);
+    default             ->          home.controller->showError($error);
 */
 
 // Se importa el archivo de configuración de la aplicación y los controladores
@@ -26,7 +26,6 @@ require_once "./app/controllers/home.controller.php";
 require_once "./app/controllers/album.controller.php";
 require_once "./app/controllers/band.controller.php";
 require_once "./app/controllers/auth.controller.php";
-require_once "./app/controllers/error.controller.php";
 
 // Lectura de acción del usuario
 $action = "home"; // acción por defecto
@@ -110,7 +109,7 @@ switch ($params[0]) {
         break;
         
     default:
-        $errorController = new ErrorController();
-        $errorController->showError("Error 404: Page not found");
+        $homeController = new HomeController();
+        $homeController->showError("Error 404: Page not found");
         break;
 }

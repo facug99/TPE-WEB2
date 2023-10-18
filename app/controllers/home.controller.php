@@ -11,7 +11,17 @@ class HomeController {
         $this->view = new HomeView();
     }
 
+    /**
+     * Muestra la página de inicio
+     */
     public function showHome() {
         $this->view->showHome();
+    }
+
+    /**
+     * Envía a la vista un error dado para que lo muestre
+     */
+    public function showError($error) {
+        $this->view->showError($error);
     }
 }
