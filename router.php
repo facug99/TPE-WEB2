@@ -2,20 +2,31 @@
 
 /*
     TABLA DE ROUTING
-    Acción                      Destino
-    home            ->          home.controller->showHome();
-    albums          ->          album.controller->showAlbums();
-    album/:id       ->          album.controller->showAlbum($id);
-    bands           ->          band.controller->showBands();
-    band/:id        ->          band.controller->showBand($id);
+    Acción                          Destino
+    home                ->          home.controller->showHome();
+    albums              ->          album.controller->showAlbums();
+    album/:id           ->          album.controller->showAlbum($id);
+    add-album           ->          album.controller->addAlbum();
+    delete-album/:id    ->          album.controller->deleteBand();
+    edit-album/:id      ->          album.controller->editAlbum($id);
+    bands               ->          band.controller->showBands();
+    band/:id            ->          band.controller->showBand($id);
+    add-band            ->          band.controller->addBand();
+    edit-band/:id       ->          band.controller->editBand($id);
+    delete-band/:id     ->          band.controler->deleteBand($id);
+    login               ->          auth.controller->showLogin();
+    auth                ->          auth.controller->auth();
+    logout              ->          auth.controller->logout();
+    default             ->          error.controller->showError($error);
 */
 
-// Se importan los archivos de los controladores
+// Se importa el archivo de configuración de la aplicación y los controladores
 require_once "config.php";
 require_once "./app/controllers/home.controller.php";
 require_once "./app/controllers/album.controller.php";
 require_once "./app/controllers/band.controller.php";
 require_once "./app/controllers/auth.controller.php";
+require_once "./app/controllers/error.controller.php";
 
 // Lectura de acción del usuario
 $action = "home"; // acción por defecto
@@ -84,8 +95,8 @@ switch ($params[0]) {
         break;
 
     case 'login':
-        $loginController = new AuthController();
-        $loginController->showLogin(); 
+        $authController = new AuthController();
+        $authController->showLogin(); 
         break;
      
     case 'auth':
@@ -94,11 +105,12 @@ switch ($params[0]) {
         break;
     
     case 'logout':
-        $controller = new AuthController();
-        $controller->logout();
+        $authController = new AuthController();
+        $authController->logout();
         break;
         
     default:
-        echo "Error 404: Page not found";
+        $errorController = new ErrorController();
+        $errorController->showError("Error 404: Page not found");
         break;
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2023 a las 18:20:49
+-- Tiempo de generación: 18-10-2023 a las 01:33:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,18 +39,18 @@ CREATE TABLE `albums` (
 --
 
 INSERT INTO `albums` (`id`, `title`, `year`, `band_id`) VALUES
-(4, 'Rock a Medianoche', 2000, 2),
-(5, 'Rock Eterno', 1999, 2),
-(6, 'Raíces sureñas', 1988, 3),
-(7, 'Folklore de la Pampa', 1999, 3),
-(8, 'Salsa y Pasión', 2005, 4),
-(9, 'Tropical Heat', 2012, 4),
-(10, 'Cachengue Bristol', 2016, 6),
-(11, 'Yo Quiero Rock', 2001, 7),
-(12, 'Con vos', 2004, 8),
-(13, 'Baila', 2010, 8),
-(14, '20 Grandes Éxitos', 2020, 9),
-(15, 'Tanto Tango', 1998, 10);
+(1, 'Rock a Medianoche', 2000, 1),
+(2, 'Rock Eterno', 1999, 1),
+(3, 'Raíces sureñas', 1988, 2),
+(4, 'Folklore de la Pampa', 1999, 2),
+(5, 'Salsa y Pasión', 2005, 3),
+(6, 'Tropical Heat', 2012, 3),
+(7, 'Cachengue Bristol', 2016, 5),
+(8, 'Yo Quiero Rock', 2001, 6),
+(9, 'Con vos', 2004, 7),
+(10, 'Baila', 2010, 7),
+(11, '20 Grandes Éxitos', 2020, 8),
+(12, 'Tanto Tango', 1998, 9);
 
 -- --------------------------------------------------------
 
@@ -71,15 +71,15 @@ CREATE TABLE `bands` (
 --
 
 INSERT INTO `bands` (`id`, `name`, `genre`, `formed_location`, `formed_year`) VALUES
-(2, 'Rockeros de la Noche', 'Rock', 'Mar del Plata', 1998),
-(3, 'Sonidos del Sur', 'Folklore', 'Bahía Blanca', 2003),
-(4, 'Hot Salsa Quilmes', 'Salsa', 'Quilmes', 2010),
-(5, 'Lomas de Milonga', 'Tango', 'Lomas de Zamora', 2008),
-(6, 'Cuartetazo Bristol', 'Cuarteto', 'Mar del Plata', 2015),
-(7, 'Esto es Rock', 'Rock', 'Tandil', 2000),
-(8, 'MDQumbia ', 'Cumbia', 'Mar del Plata', 2002),
-(9, 'Aires Sureños', 'Folklore', 'Bahía Blanca', 2012),
-(10, 'Dor por Cuatro', 'Tango', 'La Plata', 1995);
+(1, 'Rockeros de la Noche', 'Rock', 'Mar del Plata', 1998),
+(2, 'Sonidos del Sur', 'Folklore', 'Bahía Blanca', 2003),
+(3, 'Hot Salsa Quilmes', 'Salsa', 'Quilmes', 2010),
+(4, 'Lomas de Milonga', 'Tango', 'Lomas de Zamora', 2008),
+(5, 'Cuartetazo Bristol', 'Cuarteto', 'Mar del Plata', 2015),
+(6, 'Esto es Rock', 'Rock', 'Tandil', 2000),
+(7, 'MDQumbia ', 'Cumbia', 'Mar del Plata', 2002),
+(8, 'Aires Sureños', 'Folklore', 'Bahía Blanca', 2012),
+(9, 'Dor por Cuatro', 'Tango', 'La Plata', 1995);
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,7 @@ ALTER TABLE `bands`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQUE_email` (`username`) USING BTREE;
+  ADD UNIQUE KEY `UNIQUE_username` (`username`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -132,29 +132,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `bands`
 --
 ALTER TABLE `bands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `albums`
---
-ALTER TABLE `albums`
-  ADD CONSTRAINT `FK_band_id` FOREIGN KEY (`band_id`) REFERENCES `bands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

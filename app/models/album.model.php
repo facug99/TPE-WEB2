@@ -25,13 +25,16 @@ class AlbumModel extends Model {
         $album = $query->fetch(PDO::FETCH_OBJ);
         return $album;
     }
-    
-    public function getBandOfAlbum($idBand){
-        $sql = 'SELECT * FROM bands WHERE id = ?';
+
+    /**
+     * Obtiene los álbumes de una banda dada
+     */
+    public function getAlbumsOfBand($idBand) {
+        $sql = 'SELECT * FROM albums WHERE band_id = ?';
         $query = $this->db->prepare($sql);
         $query->execute([$idBand]);
-        $band = $query->fetch(PDO::FETCH_OBJ);
-        return $band;
+        $albums = $query->fetchAll(PDO::FETCH_OBJ);
+        return $albums;
     }
 
     /**
@@ -83,17 +86,5 @@ class AlbumModel extends Model {
 
         // Si count es mayor que 0, significa que el band_id existe
         return $count > 0;
-    }
-
-    /**
-     * Se obtienen las bandas de la base de datos para generar los formularios
-     */
-    public function getBands() {
-        $sql = 'SELECT * FROM bands';
-        $query = $this->db->prepare($sql);
-        $query->execute();
-
-        $bands = $query->fetchAll(PDO::FETCH_OBJ);
-        return $bands;
     }
 }

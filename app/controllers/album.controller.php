@@ -1,16 +1,19 @@
 <?php
 
 require_once './app/models/album.model.php';
+require_once './app/models/band.model.php';
 require_once './app/views/album.view.php';
 require_once './app/helpers/auth.helper.php';
 
 class AlbumController {
-    private $model;
+    private $albumModel;
+    private $bandModel;
     private $view;
 
     public function __construct() {
         AuthHelper::init();
-        $this->model = new AlbumModel();
+        $this->albumModel = new AlbumModel();
+        $this->bandModel = new BandModel();
         $this->view = new AlbumView();
     }
 
@@ -19,10 +22,10 @@ class AlbumController {
      */
     public function showAlbums() {
         // Se obtienen los álbumes
-        $albums = $this->model->getAlbums();
+        $albums = $this->albumModel->getAlbums();
 
         // Se obtienen las bandas para generar los formularios
-        $bands = $this->model->getBands(); 
+        $bands = $this->bandModel->getBands(); 
 
         // Se muestra la tabla de álbumes
         $this->view->showAlbums($albums, $bands);
@@ -33,8 +36,8 @@ class AlbumController {
      */
     public function showAlbumById($id) {
         if ($id) {
-            $album = $this->model->getAlbumById($id);
-            $band = $this->model->getBandOfAlbum($album->band_id);
+            $album = $this->albumModel->getAlbumById($id);
+            $band = $this->bandModel->getBandById($album->band_id);
             $this->view->showAlbum($album, $band);
         } else {
             $error = "ID de álbum inválido.";
@@ -43,8 +46,7 @@ class AlbumController {
     }
 
     /**
-     * Crea un álbum en la DB e informa a la vista 
-     * en caso que se haya producido un error
+     * Crea un álbum en la DB e informa a la vista en caso que se haya producido un error
      */
     public function addAlbum() {
         AuthHelper::verify();
@@ -58,14 +60,14 @@ class AlbumController {
             return;
         }
 
-        $bandExists = $this->model->checkBandExists($band_id);
+        $bandExists = $this->albumModel->checkBandExists($band_id);
         if (!$bandExists) {
             $error = "La banda no existe: debe crearla primero.";
             $this->view->showError($error);
             return;
         }
 
-        $id = $this->model->insertAlbum($title, $year, $band_id);
+        $id = $this->albumModel->insertAlbum($title, $year, $band_id);
         if ($id != 0) {
             header('Location: ' . BASE_URL . '/albums');
         } else {
@@ -80,11 +82,9 @@ class AlbumController {
      */
     public function deleteAlbum($id) {
         AuthHelper::verify();
-        $deleted = $this->model->deleteAlbum($id);
+        $deleted = $this->albumModel->deleteAlbum($id);
         if ($deleted) {
-            $albums = $this->model->getAlbums();
-            $bands = $this->model->getBands();
-            $this->view->showAlbums($albums, $bands);
+            header('Location: ' . BASE_URL . '/albums');
         } else {
             $error = "No se pudo eliminar el album de la base de datos.";
             $this->view->showError($error);
@@ -97,9 +97,10 @@ class AlbumController {
     public function editAlbum($id) {
         AuthHelper::verify();
         if (empty($_POST)) {
-            $album = $this->model->getAlbumById($id);
-            $bands = $this->model->getBands();
-            $this->view->showAlbumEditForm($album, $bands);
+            $album = $this->albumModel->getAlbumById($id);
+            $bands = $this->bandModel->getBands();
+            $currentBand = $this->bandModel->getBandOfAlbum($album);
+            $this->view->showAlbumEditForm($album, $bands, $currentBand);
             return;
         }
 
@@ -113,10 +114,8 @@ class AlbumController {
             return;
         }
 
-        $this->model->editAlbum($id, $title, $year, $band_id);
+        $this->albumModel->editAlbum($id, $title, $year, $band_id);
 
-        $albums = $this->model->getAlbums();
-        $bands = $this->model->getBands();
-        $this->view->showAlbums($albums, $bands);
+        header('Location: ' . BASE_URL . '/albums');
     }
 }

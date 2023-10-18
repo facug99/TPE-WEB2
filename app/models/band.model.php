@@ -32,14 +32,14 @@ class BandModel extends Model {
     }
 
     /**
-     * Obtiene los álbumes de una banda dada
+     * Obtiene la banda de un álbum dado
      */
-    public function getBandAlbums($idBand) {
-        $sql = 'SELECT * FROM albums WHERE band_id = ?';
+    public function getBandOfAlbum($album) {
+        $sql = 'SELECT * FROM bands WHERE id = ?';
         $query = $this->db->prepare($sql);
-        $query->execute([$idBand]);
-        $albums = $query->fetchAll(PDO::FETCH_OBJ);
-        return $albums;
+        $query->execute([$album->band_id]);
+        $band = $query->fetch(PDO::FETCH_OBJ);
+        return $band;
     }
 
     /**

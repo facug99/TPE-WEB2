@@ -12,10 +12,16 @@ class AuthController {
         $this->view = new AuthView();
     }
 
+    /**
+     * Muestra el formulario de login
+     */
     public function showLogin() {
         $this->view->showLogin();
     }
 
+    /**
+     * Autenticación del usuario
+     */
     public function auth() {
         $user = $_POST['username'];
         $password = $_POST['password'];
@@ -25,7 +31,10 @@ class AuthController {
             return;
         }
 
+        // Se obtiene el usuario de la DB dado un username
         $user = $this->model->getUserByUsername($user);
+
+        // Se verifica que el usuario exista y que coincidan las contraseñas
         if ($user && password_verify($password, $user->password)) {
             AuthHelper::login($user);
             header('Location: ' . BASE_URL);
@@ -33,9 +42,9 @@ class AuthController {
             $this->view->showLogin('Usuario inválido');
         }
     }
+
     public function logout(){
         AuthHelper::logout();
         header('Location: ' . BASE_URL); 
     }
-
 }

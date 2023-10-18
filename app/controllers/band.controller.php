@@ -1,17 +1,20 @@
 <?php
 
 require_once './app/models/band.model.php';
+require_once './app/models/album.model.php';
 require_once './app/views/band.view.php';
 require_once './app/helpers/auth.helper.php';
 
 class BandController {
-    private $model;
-    private $view;
+    private $bandModel;
+    private $albumModel;
+    private $bandView;
 
     public function __construct() {
         AuthHelper::init();
-        $this->model = new BandModel();
-        $this->view = new BandView();
+        $this->bandModel = new BandModel();
+        $this->albumModel = new AlbumModel();
+        $this->bandView = new BandView();
     }
 
     /**
@@ -19,10 +22,10 @@ class BandController {
      */
     public function showBands() {
         // Se obtienen las bandas del modelo
-        $bands = $this->model->getBands();
+        $bands = $this->bandModel->getBands();
 
         // Se envían a la vista para que las muestre
-        $this->view->showBands($bands);
+        $this->bandView->showBands($bands);
     }
 
     /**
@@ -31,16 +34,16 @@ class BandController {
     public function showBandById($id) {
         // Se verifica si existe la banda
         if ($id) {
-            // Se pide la banda a la base de datos
-            $band = $this->model->getBandById($id);
-            $albums = $this->model->getBandAlbums($id);
+            // Se pide la banda y los álbumes a los modelos
+            $band = $this->bandModel->getBandById($id);
+            $albums = $this->albumModel->getAlbumsOfBand($id);
 
             // Se la envía a la vista para que la muestre
-            $this->view->showBand($band, $albums);
+            $this->bandView->showBand($band, $albums);
         } else {
             // La vista muestra un error
             $error = "ID de banda inválido";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
         }
     }
 
@@ -60,28 +63,28 @@ class BandController {
         // Se verifican los datos ingresados
         if (empty($name) || empty($genre) || empty($location) || empty($year)) {
             $error = "Faltan completar campos.";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
             return;
         }
 
         // Se verifica si la banda ingresada ya existe
-        $exists = $this->model->checkBandExists($name);
+        $exists = $this->bandModel->checkBandExists($name);
 
         if ($exists) {
             $error = "La banda ya existe.";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
             return;
         }
 
         // Se inserta en la banda DB
-        $id = $this->model->insertBand($name, $genre, $location, $year);
+        $id = $this->bandModel->insertBand($name, $genre, $location, $year);
         
         // Se verifica si se insertó correctamente
         if ($id != 0) {
             header('Location: ' . BASE_URL . '/bands');
         } else {
             $error = "Error al insertar la banda en la base de datos.";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
             return;
         }
     }
@@ -94,21 +97,19 @@ class BandController {
         AuthHelper::verify();
 
         // Se obtienen los álbumes para verificar si se puede eliminar la banda (FK)
-        $albumModel = new AlbumModel();
-        $albums = $albumModel->getAlbums();
+        $albums = $this->albumModel->getAlbums();
 
         // Se elimina la banda de la DB a través del modelo
-        $deleted = $this->model->deleteBand($id, $albums);
+        $deleted = $this->bandModel->deleteBand($id, $albums);
 
         // Se verifica si se eliminó correctamente de la DB
         if ($deleted) {
             // Si se eliminó, se actualiza la vista
-            $bands = $this->model->getBands();
-            $this->view->showBands($bands);
+            header('Location: ' . BASE_URL . '/bands');
         } else {
             // Sino, se muestra un error
             $error = "No se pudo eliminar la banda de la base de datos: se deben eliminar primero sus álbumes.";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
         }
     }
 
@@ -121,8 +122,8 @@ class BandController {
 
         // Si no hay elementos en $_POST se muestra el formulario de edición
         if (empty($_POST)) {
-            $band = $this->model->getBandById($id);
-            $this->view->showBandEditForm($band);
+            $band = $this->bandModel->getBandById($id);
+            $this->bandView->showBandEditForm($band);
             return;
         }
 
@@ -133,26 +134,25 @@ class BandController {
 
         if (empty($name) || empty($genre) || empty($location) || empty($year)) {
             $error = "Faltan completar campos.";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
             return;
         }
 
         // Se verifica si existe otra banda con el mismo nombre
-        $band = $this->model->getBandById($id);
-        $exists = $this->model->checkBandExists($name, $band->name);
+        $band = $this->bandModel->getBandById($id);
+        $exists = $this->bandModel->checkBandExists($name, $band->name);
 
         // Si existe, se muestra un error
         if ($exists) {
             $error = "La banda ya existe.";
-            $this->view->showError($error);
+            $this->bandView->showError($error);
             return;
         }
 
         // Si no existe, se modifica la banda
-        $this->model->editBand($id, $name, $genre, $location, $year);
+        $this->bandModel->editBand($id, $name, $genre, $location, $year);
 
         // Y se actualiza la vista
-        $bands = $this->model->getBands();
-        $this->view->showBands($bands);
+        header('Location: ' . BASE_URL . '/bands');
     }
 }

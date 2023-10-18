@@ -18,7 +18,7 @@ class AlbumView {
     /**
      * Muestra el formulario de modificación
      */
-    public function showAlbumEditForm($album, $bands){
+    public function showAlbumEditForm($album, $bands, $currentBand){
         require_once 'templates/album_form_edit.phtml';
     }
 
