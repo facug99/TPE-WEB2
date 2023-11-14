@@ -96,6 +96,14 @@ class BandController {
         // Se verifica el inicio de sesión
         AuthHelper::verify();
 
+        // Se verifica si existe la banda a eliminar
+        $band = $this->bandModel->getBandById($id);
+        if (empty($band)) {
+            $error = "La banda con id = $id no existe.";
+            $this->bandView->showError($error);
+            return;
+        }
+
         // Se obtienen los álbumes para verificar si se puede eliminar la banda (FK)
         $albums = $this->albumModel->getAlbums();
 
