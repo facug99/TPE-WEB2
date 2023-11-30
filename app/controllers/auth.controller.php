@@ -39,7 +39,7 @@ class AuthController {
             AuthHelper::login($user);
             header('Location: ' . BASE_URL);
         } else {
-            $this->view->showLogin('Usuario inválido');
+            $this->view->showLogin('Usuario o contraseña incorrectos');
         }
     }
 
